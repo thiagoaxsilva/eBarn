@@ -1,0 +1,40 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="form" (submit)="onAddTractor()" *ngIf="!isLoading">
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        formControlName="name"
+        placeholder="Tractor Name"
+      />
+      <mat-error *ngIf="form.get('name').invalid"
+        >Please enter a tractor name.</mat-error
+      >
+    </mat-form-field>
+    <div>
+      <button mat-stroked-button type="button" (click)="filePicker.click()">
+        Pick Image
+      </button>
+      <input type="file" #filePicker (change)="onImagePicked($event)" />
+    </div>
+    <div
+      class="image-preview"
+      *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid"
+    >
+      <img [src]="imagePreview" [alt]="form.value.name" />
+    </div>
+    <mat-form-field>
+      <textarea
+        matInput
+        rows="4"
+        formControlName="description"
+        placeholder="Tractor description"
+      ></textarea>
+      <mat-error *ngIf="form.get('description').invalid"
+        >Please enter a tractor description.</mat-error
+      >
+    </mat-form-field>
+    <button mat-raised-button color="accent" type="submit">Save Tractor</button>
+  </form>
+</mat-card>

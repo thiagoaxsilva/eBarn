@@ -1,0 +1,23 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-accordion multi="true" *ngIf="tractors.length > 0 && !isLoading">
+  <mat-expansion-panel *ngFor="let tractor of tractors">
+    <mat-expansion-panel-header>
+      {{ tractor.name }}
+    </mat-expansion-panel-header>
+    <div class="tractor-image">
+      <img [src]="tractor.imagePath" [alt]="tractor.name" />
+    </div>
+    <p>{{ tractor.description }}</p>
+    <mat-action-row>
+      <button mat-button color="primary" [routerLink]="['/edit', tractor._id]">
+        EDIT
+      </button>
+      <button mat-button color="warn" (click)="onDelete(tractor._id)">
+        DELETE
+      </button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<p class="info-text math-body-1" *ngIf="tractors.length <= 0 && !isLoading">
+  No tractors added yet!
+</p>
